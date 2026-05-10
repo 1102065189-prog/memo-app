@@ -1,0 +1,14 @@
+{
+  "appId": "com.memo.assistant",
+  "appName": "Memo AI备忘录",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_icon",
+      "iconColor": "#4F46E5"
+    }
+  }
+}

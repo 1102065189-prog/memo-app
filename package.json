@@ -1,0 +1,20 @@
+{
+  "name": "memo-app",
+  "version": "1.0.0",
+  "description": "AI对话式备忘录助手 - Android APP",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Static web app, no build needed'",
+    "cap:sync": "npx cap sync android",
+    "cap:build": "npx cap build android",
+    "apk": "cd android && gradlew.bat assembleDebug"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/local-notifications": "^6.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.0.0"
+  }
+}

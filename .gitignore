@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Android build artifacts
+android/app/build/
+android/.gradle/
+android/build/
+android/capacitor-*.aar
+android/app/src/main/assets/public/
+
+# APK files
+*.apk
+
+# IDE and tooling
+.claude/
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Internal docs
+开发memo智能提醒助手与打包经验总结.md
