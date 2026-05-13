@@ -1,6 +1,7 @@
 // 主应用逻辑
 const App = (() => {
   let currentFilter = 'pending';
+  let currentCategoryFilter = 'all';
   let searchQuery = '';
   let isAIProcessing = false;
 
@@ -59,6 +60,12 @@ const App = (() => {
     // 搜索
     document.getElementById('input-search').addEventListener('input', e => {
       searchQuery = e.target.value;
+      render();
+    });
+
+    // 分类筛选
+    document.getElementById('category-filter').addEventListener('change', e => {
+      currentCategoryFilter = e.target.value;
       render();
     });
 
@@ -803,13 +810,22 @@ const App = (() => {
   }
 
   function render() {
-    const memos = Store.query(currentFilter, searchQuery);
+    const memos = Store.query(currentFilter, searchQuery, currentCategoryFilter);
     const container = document.getElementById('memo-list');
     const empty = document.getElementById('empty-state');
 
     if (memos.length === 0) {
       container.innerHTML = '';
       empty.style.display = 'block';
+      // 根据筛选条件显示不同的提示
+      const emptyHint = empty.querySelector('.sub');
+      if (currentCategoryFilter !== 'all') {
+        emptyHint.textContent = `没有"${currentCategoryFilter}"分类的任务`;
+      } else if (searchQuery) {
+        emptyHint.textContent = '没有找到匹配的任务';
+      } else {
+        emptyHint.textContent = '在上方输入框中输入自然语言添加';
+      }
       return;
     }
 
@@ -1141,13 +1157,15 @@ const App = (() => {
       const a = document.createElement('a');
       const now = new Date();
       const dateStr = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`;
+      const fileName = `memo_backup_${dateStr}.json`;
       a.href = url;
-      a.download = `memo_backup_${dateStr}.json`;
+      a.download = fileName;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      Notify.showToast('数据导出成功', 'success');
+      // 显示导出成功提示和文件保存位置
+      Notify.showToast(`导出成功！文件已保存到：\n下载文件夹/${fileName}`, 'success', 5000);
     } catch (e) {
       console.error('Export error:', e);
       Notify.showToast('导出失败: ' + e.message, 'error');

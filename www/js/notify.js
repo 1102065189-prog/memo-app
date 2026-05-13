@@ -65,7 +65,7 @@ const Notify = (() => {
     }
   }
 
-  function showToast(message, type = 'info') {
+  function showToast(message, type = 'info', duration = 2000) {
     const existing = document.querySelector('.toast');
     if (existing) existing.remove();
 
@@ -78,7 +78,7 @@ const Notify = (() => {
     setTimeout(() => {
       toast.classList.remove('show');
       setTimeout(() => toast.remove(), 300);
-    }, 2000);
+    }, duration);
   }
 
   return { init, schedule, cancel, cancelAll, showToast };

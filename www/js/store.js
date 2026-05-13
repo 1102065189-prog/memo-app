@@ -112,7 +112,7 @@ const Store = (() => {
     return false;
   }
 
-  function query(filter, search) {
+  function query(filter, search, categoryFilter) {
     let memos = load();
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -142,6 +142,11 @@ const Store = (() => {
       case 'all':
       default:
         break;
+    }
+
+    // 按分类筛选
+    if (categoryFilter && categoryFilter !== 'all') {
+      memos = memos.filter(m => m.category === categoryFilter);
     }
 
     if (search) {
